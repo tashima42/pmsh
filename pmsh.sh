@@ -8,7 +8,7 @@ function get_real_path() {
 function add_project() {
   name=$1
   directory="$(get_real_path $2)"
-  sed -i "\$i function $name(){ cd $directory ; }" $CONFIG_FILE
+  sed -i "\$i function $name(){ cd \"$directory\" ; }" $CONFIG_FILE
 }
 
 function remove_project() {
@@ -25,7 +25,6 @@ function edit_project() {
 
 function list_projects() {
   while read p; do
-    echo "file: $p"
     name=$(echo "$p" | grep --o -P "(?<=function\ )..*(?=\(\) )")
     directory=$(echo "$p" | grep -o -P "(?<=cd\ \")..*(?=\")")
     echo "$name = $directory"
