@@ -1,6 +1,11 @@
 # pmsh
 Simple project manager CLI for GNU/Linux
 
+<details>
+    <summary>Video demo:</summary>
+    <a href="https://asciinema.org/a/lLn3ZdvvrCR6xtHaqscIvll3s" target="_blank"><img src="https://asciinema.org/a/lLn3ZdvvrCR6xtHaqscIvll3s.svg" /></a>
+</details>
+
 ## Installation
 **Warning**: always inspect scripts before running them, if you're not comfortable installing this way, just follow line by line the `install.sh` script
 ```bash
