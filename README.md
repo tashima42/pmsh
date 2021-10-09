@@ -2,6 +2,7 @@
 Simple project manager CLI for GNU/Linux
 
 ## Installation
+Warning: always inspect scripts before running them
 ```bash
 curl https://raw.githubusercontent.com/Tashima42/pmsh/main/install.sh | sudo sh
 ```

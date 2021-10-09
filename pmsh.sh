@@ -8,12 +8,12 @@ function get_real_path() {
 function add_project() {
   name=$1
   directory="$(get_real_path $2)"
-  sed -i "\$i function $name(){ cd \"$directory\" ; }" $CONFIG_FILE
+  echo "function $name() { cd \"$directory\" ; }" >> $CONFIG_FILE
 }
 
 function remove_project() {
   name=$1
-  sed -i "/\function $name\()/d" $CONFIG_FILE
+  sed -i "/function $name()\ {/d" $CONFIG_FILE
 }
 
 function edit_project() {
@@ -25,9 +25,11 @@ function edit_project() {
 
 function list_projects() {
   while read p; do
-    name=$(echo "$p" | grep --o -P "(?<=function\ )..*(?=\(\) )")
+    name=$(echo "$p" | grep --o -P "(?<=function\ )..*(?=\(\) {)")
     directory=$(echo "$p" | grep -o -P "(?<=cd\ \")..*(?=\")")
-    echo "$name = $directory"
+    if [[ ! -z "$name" ]];then 
+      echo "$name = $directory"
+    fi
   done <$CONFIG_FILE
 }
 
@@ -40,7 +42,7 @@ Examples:
     Edit: pmsh edit \$name \$new_directory"
 }
 
-default_message="Invalid argument, try: pmsh help"
+default_message="try: 'pmsh help' for instructions"
 
 for i in "$@"; do
   case $i in
