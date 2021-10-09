@@ -7,7 +7,7 @@ Simple project manager CLI for GNU/Linux
 </details>
 
 ## Installation
-**Warning**: always inspect scripts before running them, if you're not comfortable installing this way, just follow line by line the `install.sh` script
+**Warning**: always inspect scripts before running them, if you're not comfortable installing this way, just follow line by line the [`install.sh`](https://github.com/Tashima42/pmsh/blob/main/install.sh) script
 ```bash
 curl https://raw.githubusercontent.com/Tashima42/pmsh/main/install.sh | sh
 ```
