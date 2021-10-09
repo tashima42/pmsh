@@ -43,6 +43,7 @@ Examples:
 }
 
 default_message="try: 'pmsh help' for instructions"
+apply_message="run: 'source ~/.bashrc' or 'source ~/.zshrc' to apply the changes"
 
 for i in "$@"; do
   case $i in
@@ -56,14 +57,17 @@ for i in "$@"; do
       ;;
     add)
       add_project $2 $3
+      echo $apply_message
       exit 0
       ;;
     remove)
       remove_project $2
+      echo $apply_message
       exit 0
       ;;
     edit)
       edit_project $2 $3
+      echo $apply_message
       exit 0
       ;;
     *)
