@@ -1,6 +1,8 @@
 #!/bin/sh
 
+echo
 sudo sh -c "curl https://raw.githubusercontent.com/Tashima42/pmsh/main/pmsh.sh > /usr/local/bin/pmsh"
+echo
 sudo chmod +x /usr/local/bin/pmsh
 
 mkdir -p $HOME/.config
