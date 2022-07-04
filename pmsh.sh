@@ -7,7 +7,20 @@ function get_real_path() {
 
 function add_project() {
   name=$1
-  directory="$(get_real_path $2)"
+  directory_short_path=$2
+  if [[ ! "$name" ]];then 
+    echo "Missing directory name"
+    echo "Example: pmsh add <project_name> ../directory/path"
+    exit 1
+  fi
+  if [[ ! "$directory_short_path" ]];then 
+    echo "Missing directory path"
+    echo "Example: pmsh add <project_name> ./directory/path"
+    exit 1
+  fi
+
+  directory="$(get_real_path $directory_short_path)"
+
   echo "function $name() { cd \"$directory\" ; }" >> $CONFIG_FILE
 }
 
@@ -79,4 +92,3 @@ done
 
 echo $default_message
 exit 0
-

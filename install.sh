@@ -1,32 +1,38 @@
-#!/bin/sh
+#!/bin/bash
+
+INSTALL_FOLDER=$HOME/.local/bin
+INSTALL_FILE=$INSTALL_FOLDER/pmsh
+CONFIG_FOLDER=$HOME/.config
+CONFIG_FILE=$CONFIG_FOLDER/.pmsh
+SOURCE_LINE="source $CONFIG_FILE"
+
+mkdir -p $INSTALL_FOLDER
 
 echo
-sudo sh -c "curl https://raw.githubusercontent.com/Tashima42/pmsh/main/pmsh.sh > /usr/local/bin/pmsh"
+sudo sh -c "curl https://raw.githubusercontent.com/Tashima42/pmsh/main/pmsh.sh > $INSTALL_FILE"
 echo
-sudo chmod +x /usr/local/bin/pmsh
+sudo chmod +x $INSTALL_FILE
 
-mkdir -p $HOME/.config
-touch $HOME/.config/.pmsh
+mkdir -p $CONFIG_FOLDER
+touch $CONFIG_FILE
 
-source_line="source \$HOME/.config/.pmsh"
 
 case $SHELL in
 */zsh) 
   echo "===Using ZSH==="
-  echo $source_line >> $HOME/.zshrc
-  echo "===added '$source_line' to .zshrc==="
+  echo $SOURCE_LINE >> $HOME/.zshrc
+  echo "===added '$SOURCE_LINE' to .zshrc==="
   echo "RUN: 'source ~/.zshrc'"
   ;;
 */bash)
   echo "===Using BASH==="
-  echo $source_line >> $HOME/.bashrc
-  echo "===added '$source_line' to .bashrc==="
+  echo $SOURCE_LINE >> $HOME/.bashrc
+  echo "===added '$SOURCE_LINE' to .bashrc==="
   echo "RUN: 'source ~/.bashrc'"
   ;;
 *)
   echo "WARNING: couldn't append to your rc file, please add it manually" 
-  echo "run: '$source_line >> $HOME/.bashrc'"
+  echo "run: '$SOURCE_LINE >> $HOME/.bashrc'"
   echo "OR"
-  echo "run: '$source_line >> $HOME/.zshrc'"
+  echo "run: '$SOURCE_LINE >> $HOME/.zshrc'"
 esac
-
