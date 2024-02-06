@@ -1,13 +1,14 @@
 #!/bin/bash
 
 INSTALL_FOLDER=$HOME/.local/bin
+INSTALLED_PATH=$HOME/.local/bin/pmsh
 CONFIG_FOLDER=$HOME/.config
 CONFIG_FILE=$CONFIG_FOLDER/.pmsh
 SOURCE_LINE="source $CONFIG_FILE"
 
 mkdir -p "$INSTALL_FOLDER"
 cd "$INSTALL_FOLDER" || exit
-wget -o pmsh https://raw.githubusercontent.com/Tashima42/pmsh/main/pmsh.sh
+wget -O pmsh https://raw.githubusercontent.com/Tashima42/pmsh/main/pmsh.sh
 
 mkdir -p "$CONFIG_FOLDER"
 touch "$CONFIG_FILE"
@@ -32,3 +33,6 @@ case $SHELL in
   echo "OR"
   echo "run: '\"$SOURCE_LINE\" >> \"$HOME\"/.zshrc'"
 esac
+
+echo 'please, run the following command to make pmsh executable:'
+echo "sudo chmod +x \"$INSTALLED_PATH\""
