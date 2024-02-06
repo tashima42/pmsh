@@ -2,7 +2,7 @@
 CONFIG_FILE=$HOME/.config/.pmsh
 
 function get_real_path() {
-  echo "$(realpath $1)"
+  realpath "$1"
 }
 
 function add_project() {
@@ -19,31 +19,31 @@ function add_project() {
     exit 1
   fi
 
-  directory="$(get_real_path $directory_short_path)"
+  directory="$(get_real_path "$directory_short_path")"
 
-  echo "function $name() { cd \"$directory\" ; }" >> $CONFIG_FILE
+  echo "function $name() { cd \"$directory\" ; }" >> "$CONFIG_FILE"
 }
 
 function remove_project() {
   name=$1
-  sed -i "/function $name()\ {/d" $CONFIG_FILE
+  sed -i "/function $name()\ {/d" "$CONFIG_FILE"
 }
 
 function edit_project() {
   name=$1
   directory=$2
-  remove_project $name
-  add_project $name $directory
+  remove_project "$name"
+  add_project "$name" "$directory"
 }
 
 function list_projects() {
-  while read p; do
+  while read -r p; do
     name=$(echo "$p" | grep --o -P "(?<=function\ )..*(?=\(\) {)")
     directory=$(echo "$p" | grep -o -P "(?<=cd\ \")..*(?=\")")
-    if [[ ! -z "$name" ]];then 
-      echo "$name = $directory"
+    if [[ -n "$name" ]];then 
+      echo "\"$name\" = \"$directory\""
     fi
-  done <$CONFIG_FILE
+  done <"$CONFIG_FILE"
 }
 
 function help_message() {
@@ -69,26 +69,26 @@ for i in "$@"; do
       exit 0
       ;;
     add)
-      add_project $2 $3
-      echo $apply_message
+      add_project "$2" "$3"
+      echo "$apply_message"
       exit 0
       ;;
     remove)
-      remove_project $2
-      echo $apply_message
+      remove_project "$2"
+      echo "$apply_message"
       exit 0
       ;;
     edit)
-      edit_project $2 $3
-      echo $apply_message
+      edit_project "$2" "$3"
+      echo "$apply_message"
       exit 0
       ;;
     *)
-      echo $default_message
+      echo "$default_message"
       exit 0
       ;;
   esac
 done
 
-echo $default_message
+echo "$default_message"
 exit 0
